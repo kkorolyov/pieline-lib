@@ -23,7 +23,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle.kts') }}
 
       - name: Publish
-        run: ./gradlw publish
+        run: ./gradlew publish
         working-directory: libkt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
