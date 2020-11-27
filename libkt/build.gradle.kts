@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "dev.kkorolyov.pieline"
-version = "0.3"
+version = "0.4"
 description = "Shared library utilities"
 
 java {
@@ -32,7 +32,7 @@ dependencies {
 
 	api("io.grpc:grpc-api:$grpcVersion")
 	api("io.opentracing:opentracing-api:$opentracingVersion")
-	implementation("io.opentracing.contrib:opentracing-grpc:$opentracingGrpcVersion")
+	api("io.opentracing.contrib:opentracing-grpc:$opentracingGrpcVersion")
 	implementation("io.jaegertracing:jaeger-client:$jaegerVersion")
 
 	dependencyLocking {
