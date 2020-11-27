@@ -1,0 +1,21 @@
+# Language
+.venv/
+__pycache__/
+node_modules/
+*.egg-info
+*pb2*
+
+# Build
+.gradle/
+.tox/
+build/
+generated/
+dist/
+target/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+out/
+yarn-error.log*
