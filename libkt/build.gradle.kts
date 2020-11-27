@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "dev.kkorolyov.pieline"
-version = "0.1"
+version = "0.2"
 description = "Shared library utilities"
 
 java {
@@ -25,10 +25,12 @@ repositories {
 }
 
 dependencies {
+	val grpcVersion: String by project
 	val opentracingVersion: String by project
 	val opentracingGrpcVersion: String by project
 	val jaegerVersion: String by project
 
+	api("io.grpc:grpc-api:$grpcVersion")
 	api("io.opentracing:opentracing-api:$opentracingVersion")
 	implementation("io.opentracing.contrib:opentracing-grpc:$opentracingGrpcVersion")
 	implementation("io.jaegertracing:jaeger-client:$jaegerVersion")
