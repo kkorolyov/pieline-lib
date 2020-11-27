@@ -11,62 +11,44 @@ plugins {
 	`maven-publish`
 }
 
-// To resolve plugins
+group = "dev.kkorolyov.pieline"
+version = "0.1"
+description = "Shared library utilities"
+
+java {
+	sourceCompatibility = VERSION_14
+	targetCompatibility = VERSION_14
+}
+
 repositories {
 	jcenter()
 }
 
-subprojects {
-	apply(plugin = "kotlin")
-	apply(plugin = "java-library")
-	apply(plugin = "maven-publish")
+dependencies {
+	val opentracingVersion: String by project
+	val opentracingGrpcVersion: String by project
+	val jaegerVersion: String by project
 
-	group = "dev.kkorolyov.pieline.lib"
-	version = "0.1"
+	api("io.opentracing:opentracing-api:$opentracingVersion")
+	implementation("io.opentracing.contrib:opentracing-grpc:$opentracingGrpcVersion")
+	implementation("io.jaegertracing:jaeger-client:$jaegerVersion")
+}
 
-	java {
-		sourceCompatibility = VERSION_14
-		targetCompatibility = VERSION_14
+publishing {
+	publications {
+		create<MavenPublication>("mvn") {
+			from(components["java"])
+		}
 	}
 
 	repositories {
-		jcenter()
-	}
-
-	publishing {
-		publications {
-			create<MavenPublication>("mvn") {
-				from(components["java"])
-			}
-		}
-
-		repositories {
-			maven {
-				name = "GitHubPackages"
-				url = uri("https://maven.pkg.github.com/kkorolyov/pieline-lib")
-				credentials {
-					username = System.getenv("GITHUB_ACTOR")
-					password = System.getenv("GITHUB_TOKEN")
-				}
+		maven {
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/kkorolyov/pieline-lib")
+			credentials {
+				username = System.getenv("GITHUB_ACTOR")
+				password = System.getenv("GITHUB_TOKEN")
 			}
 		}
 	}
-}
-
-project(":tracing") {
-	description = "Common tracing functionality"
-
-	dependencies {
-		val opentracingVersion: String by project
-		val opentracingGrpcVersion: String by project
-		val jaegerVersion: String by project
-
-		api("io.opentracing:opentracing-api:$opentracingVersion")
-		implementation("io.opentracing.contrib:opentracing-grpc:$opentracingGrpcVersion")
-		implementation("io.jaegertracing:jaeger-client:$jaegerVersion")
-	}
-}
-
-project(":util") {
-	description = "Miscellaneous helpful utility constructs"
 }
