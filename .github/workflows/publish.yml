@@ -1,0 +1,29 @@
+name: Publish
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  libkt:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.14
+
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle.kts') }}
+
+      - name: Publish
+        run: ./gradlw publish
+        working-directory: libkt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

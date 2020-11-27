@@ -1,4 +1,4 @@
-package dev.kkorolyov.libkt.util
+package dev.kkorolyov.pieline.lib.util
 
 /**
  * Convenience address encapsulation.

@@ -1,5 +1,4 @@
 import org.gradle.api.JavaVersion.VERSION_14
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin
 
 tasks.wrapper {
 	gradleVersion = File("gradle-version").useLines { it.firstOrNull() }
@@ -7,15 +6,17 @@ tasks.wrapper {
 }
 
 plugins {
-	kotlin("jvm") version "1.3.72"
+	kotlin("jvm") version "1.4.20"
 	`java-library`
+	`maven-publish`
 }
 
 subprojects {
-	apply<KotlinPlatformJvmPlugin>()
-	apply<JavaLibraryPlugin>()
+	apply(plugin = "kotlin")
+	apply(plugin = "java-library")
+	apply(plugin = "maven-publish")
 
-	group = "dev.kkorolyov"
+	group = "dev.kkorolyov.pieline.lib"
 	version = "0.1"
 
 	java {
@@ -27,11 +28,24 @@ subprojects {
 		jcenter()
 	}
 
-	dependencies {
-		implementation(kotlin("stdlib-jdk8"))
-	}
+	publishing {
+		publications {
+			create<MavenPublication>("mvn") {
+				from(components["java"])
+			}
+		}
 
-	// TODO Publish
+		repositories {
+			maven {
+				name = "GitHubPackages"
+				url = uri("https://maven.pkg.github.com/kkorolyov/pieline-lib")
+				credentials {
+					username = System.getenv("GITHUB_ACTOR")
+					password = System.getenv("GITHUB_TOKEN")
+				}
+			}
+		}
+	}
 }
 
 project(":tracing") {

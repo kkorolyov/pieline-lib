@@ -1,4 +1,4 @@
-package dev.kkorolyov.libkt.trace
+package dev.kkorolyov.pieline.lib.trace
 
 import io.jaegertracing.Configuration
 import io.jaegertracing.Configuration.ReporterConfiguration
