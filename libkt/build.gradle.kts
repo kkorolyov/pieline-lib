@@ -11,6 +11,11 @@ plugins {
 	`maven-publish`
 }
 
+// To resolve plugins
+repositories {
+	jcenter()
+}
+
 subprojects {
 	apply(plugin = "kotlin")
 	apply(plugin = "java-library")
