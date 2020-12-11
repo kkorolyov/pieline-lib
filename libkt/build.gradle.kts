@@ -12,12 +12,15 @@ plugins {
 }
 
 group = "dev.kkorolyov.pieline"
-version = "0.5"
+version = "0.6"
 description = "Shared library utilities"
 
 java {
 	sourceCompatibility = VERSION_14
 	targetCompatibility = VERSION_14
+
+	withSourcesJar()
+	withJavadocJar()
 }
 
 repositories {
