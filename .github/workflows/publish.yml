@@ -24,7 +24,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle.kts') }}
 
       - name: Publish
-        run: ./gradlew publish -Pversion=$(echo ${{ github.ref }} | sed -s#refs/tags/##)
+        run: ./gradlew publish -Pversion=$(echo ${{ github.ref }} | sed s#refs/tags/##)
         working-directory: libkt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
