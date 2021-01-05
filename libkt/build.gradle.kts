@@ -12,7 +12,6 @@ plugins {
 }
 
 group = "dev.kkorolyov.pieline"
-version = "0.6"
 description = "Shared library utilities"
 
 java {
