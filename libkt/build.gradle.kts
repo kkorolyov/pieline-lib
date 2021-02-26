@@ -28,13 +28,14 @@ repositories {
 
 dependencies {
 	val grpcVersion: String by project
+	api("io.grpc:grpc-api:$grpcVersion")
+
 	val opentracingVersion: String by project
 	val opentracingGrpcVersion: String by project
-	val jaegerVersion: String by project
-
-	api("io.grpc:grpc-api:$grpcVersion")
 	api("io.opentracing:opentracing-api:$opentracingVersion")
 	api("io.opentracing.contrib:opentracing-grpc:$opentracingGrpcVersion")
+
+	val jaegerVersion: String by project
 	implementation("io.jaegertracing:jaeger-client:$jaegerVersion")
 
 	dependencyLocking {
