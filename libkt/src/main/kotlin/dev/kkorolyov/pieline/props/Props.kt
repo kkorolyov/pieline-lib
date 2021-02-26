@@ -1,5 +1,6 @@
 package dev.kkorolyov.pieline.props
 
+import java.io.InputStream
 import java.util.Properties
 
 /**
@@ -8,13 +9,11 @@ import java.util.Properties
  * When retrieving properties, attempts to find a matching environment variable, else defers to the default properties resource.
  */
 class Props(
-	/** Path to default properties resource */
-	resource: String
+	/** Default properties resource */
+	resource: InputStream
 ) {
 	private val props = Properties().apply {
-		javaClass.getResourceAsStream(resource).use {
-			load(it)
-		}
+		load(resource)
 	}
 
 	/**
